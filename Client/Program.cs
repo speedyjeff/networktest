@@ -8,10 +8,11 @@ namespace Client
     {
         public static int Main(string[] args)
         {
+            var url = args.Length > 0 ? args[0] : "http://dl.google.com/googletalk/googletalk-setup.exe";
             if (args.Length == 0)
             {
                 Console.WriteLine("./client <address>");
-                return 0;
+                Console.WriteLine($"    using default {url}");
             }
 
             // init
@@ -28,7 +29,7 @@ namespace Client
                 using (var client = new System.Net.WebClient())
                 {
                     timer.Start();
-                    data = client.DownloadData(args[0]);
+                    data = client.DownloadData(url);
                     timer.Stop();
                 }
 
@@ -36,7 +37,7 @@ namespace Client
                 var speed = ((double)data.LongLength / timer.Elapsed.TotalSeconds) / (1024d*1024d);
 
                 // output
-                Console.WriteLine($"{timer.Elapsed} {speed:N0} mbps");
+                Console.WriteLine($"{DateTime.Now:o}\t{timer.Elapsed}\t{speed:f2}");
 
                 timer.Reset();
             }
@@ -44,22 +45,18 @@ namespace Client
             return 0;
         }
 
-
         #region private
         private static Thread Reader;
         private static int IsSet;
 
         private static void WaitForConsoleInput()
         {
-            while (true)
-            {
-                // wait for input
-                Console.ReadLine();
+            // wait for input
+            Console.ReadLine();
 
-                // set that input was received
-                System.Threading.Volatile.Write(ref IsSet, 1);
-            }
+            // set that input was received
+            System.Threading.Volatile.Write(ref IsSet, 1);
         }
-            #endregion
+        #endregion
     }
 }

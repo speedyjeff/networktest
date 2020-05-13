@@ -30,7 +30,7 @@ namespace Server
 
             // fill the buffer with garbage
             var rand = new Random();
-            var buffer = new byte[1024 * 1024]; // 1 mb
+            var buffer = new byte[1606064]; // ~1.5 mb
             for (int i = 0; i < buffer.Length; i++) buffer[i] = (byte)(rand.Next() % 256);
 
             app.UseEndpoints(endpoints =>
