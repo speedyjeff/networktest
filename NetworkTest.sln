@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30104.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{FFA871D6-2FC7-46EA-ABF7-C9C547D6A8FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{FFA871D6-2FC7-46EA-ABF7-C9C547D6A8FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{A2EA05A8-D9A5-4A76-AC49-501E706FA9F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{A2EA05A8-D9A5-4A76-AC49-501E706FA9F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bandwidth", "Bandwidth\Bandwidth.csproj", "{07B9D70B-89D1-4272-BC71-6ACC93E80E0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A2EA05A8-D9A5-4A76-AC49-501E706FA9F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2EA05A8-D9A5-4A76-AC49-501E706FA9F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2EA05A8-D9A5-4A76-AC49-501E706FA9F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07B9D70B-89D1-4272-BC71-6ACC93E80E0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07B9D70B-89D1-4272-BC71-6ACC93E80E0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07B9D70B-89D1-4272-BC71-6ACC93E80E0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07B9D70B-89D1-4272-BC71-6ACC93E80E0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
