@@ -7,13 +7,16 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Net.Http;
+using System.Net;
+using System.Net.Http.Headers;
 
 namespace Bandwidth
 {
-    public static class BandwidthFunction
+    public static class Test
     {
-        [FunctionName("Bandwidth")]
-        public static IActionResult Run(
+        [FunctionName("test")]
+        public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
@@ -27,7 +30,7 @@ namespace Bandwidth
                 for (int i = 0; i < Buffer.Length; i++) Buffer[i] = (byte)(rand.Next() % 256);
             }
 
-            return new OkObjectResult(Buffer);
+            return new FileContentResult(Buffer, "image/jpeg");
         }
 
         #region private
