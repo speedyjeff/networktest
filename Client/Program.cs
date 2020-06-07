@@ -1,9 +1,20 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net;
 using System.Threading;
 
 namespace Client
 {
+    class WebClientWithTimeout : WebClient
+    {
+        protected override WebRequest GetWebRequest(Uri address)
+        {
+            WebRequest wr = base.GetWebRequest(address);
+            wr.Timeout = 5000; // timeout in milliseconds (ms)
+            return wr;
+        }
+    }
+
     class Program
     {
         public static int Main(string[] args)
@@ -28,19 +39,27 @@ namespace Client
             duration.Start();
             while (System.Threading.Volatile.Read(ref IsSet) == 0)
             {
-                // get content
-                using (var client = new System.Net.WebClient())
+	        try
                 {
-                    timer.Start();
-                    data = client.DownloadData(url);
-                    timer.Stop();
+                    // get content
+                    using (var client = new WebClientWithTimeout())
+                    {
+                        timer.Start();
+                        data = client.DownloadData(url);
+                        timer.Stop();
+                    }
+
+                    // calculate
+                    var speed = ((double)data.LongLength / timer.Elapsed.TotalSeconds) / (1024d*1024d);
+
+                    // output
+                    Console.WriteLine($"{DateTime.Now:o}\t{timer.ElapsedMilliseconds}\t{speed:f2}");
                 }
-
-                // calculate
-                var speed = ((double)data.LongLength / timer.Elapsed.TotalSeconds) / (1024d*1024d);
-
-                // output
-                Console.WriteLine($"{DateTime.Now:o}\t{timer.Elapsed}\t{speed:f2}");
+                catch(Exception e)
+                {
+                    timer.Stop();
+                    Console.WriteLine($"{DateTime.Now:o}\t{timer.ElapsedMilliseconds}\t-1\t{e.Message}");
+                }
 
                 timer.Reset();
 
